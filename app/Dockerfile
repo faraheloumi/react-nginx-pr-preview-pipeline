@@ -1,5 +1,5 @@
 # Stage 1 : build avec node
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -14,3 +14,4 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # expose 80 pour le container
 EXPOSE 80
 # start nginx (par défaut CMD already present in nginx image)
+CMD ["nginx", "-g", "daemon off;"]
